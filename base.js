@@ -1,15 +1,23 @@
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
 function drawCanvas() {
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "red";
-    ctx.fillRect(10, 10, 150, 100);
+    test(ctx);
+    requestAnimationFrame(drawCanvas);
 }
 
 /*
-
+    spec:
+    nodes = {
+        priorities: 
+    }
 */
+class NodeConnector {
+    constructor(nodes) {
 
+    }
+}
 
-/*
+function test(ctx) {
 
-*/
+}
