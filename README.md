@@ -5,7 +5,7 @@ Includes the following:
 
 - Brush smoothing
 - Arbitrary ragdoll, mannequin connection and faux 3D rendering
-- Path-based shading
+- Path-based, positioned light source shading
   - Cel
   - Cartoon
   - Soft
