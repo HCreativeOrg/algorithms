@@ -6,18 +6,6 @@ function drawCanvas() {
     requestAnimationFrame(drawCanvas);
 }
 
-/*
-    spec:
-    nodes = {
-        priorities: 
-    }
-*/
-class NodeConnector {
-    constructor(nodes) {
-
-    }
-}
-
 function test(ctx) {
 
 }
