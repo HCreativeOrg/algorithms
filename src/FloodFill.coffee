@@ -1,26 +1,47 @@
 class HCFloodFill
     constructor: (@width, @height, @data) ->
 
-    fill: (x, y, fillColor, avoidPaths = []) ->
+    fill: (x, y, fillColor, avoidPaths = [], tolerance = 10) ->
         if x < 0 or x >= @width or y < 0 or y >= @height
             return
         targetColor = @data[y][x]
-        if targetColor == fillColor
+        if @colorsEqual(targetColor, fillColor, tolerance)
             return
         stack = [[x, y]]
+        visited = Array(@height)
+        for i in [0...@height]
+            visited[i] = Array(@width).fill(false)
         while stack.length > 0
             [cx, cy] = stack.pop()
             if cx < 0 or cx >= @width or cy < 0 or cy >= @height
                 continue
-            if @data[cy][cx] != targetColor
+            if visited[cy][cx]
+                continue
+            if not @colorsEqual(@data[cy][cx], targetColor, tolerance)
                 continue
             if @isInsideAnyPath(cx, cy, avoidPaths)
                 continue
             @data[cy][cx] = fillColor
-            stack.push([cx + 1, cy])
-            stack.push([cx - 1, cy])
-            stack.push([cx, cy + 1])
-            stack.push([cx, cy - 1])
+            visited[cy][cx] = true
+            directions = [
+                [cx + 1, cy], [cx - 1, cy], [cx, cy + 1], [cx, cy - 1],
+                [cx + 1, cy + 1], [cx + 1, cy - 1], [cx - 1, cy + 1], [cx - 1, cy - 1]
+            ]
+            for [nx, ny] in directions
+                if nx >= 0 and nx < @width and ny >= 0 and ny < @height
+                    stack.push([nx, ny])
+
+    colorsEqual: (a, b, tolerance = 10) ->
+        if Array.isArray(a) and Array.isArray(b)
+            if a.length != b.length
+                return false
+            for i in [0...a.length]
+                diff = Math.abs(a[i] - b[i])
+                if diff > tolerance
+                    return false
+            return true
+        else
+            return Math.abs(a - b) <= tolerance
 
     isInsideAnyPath: (x, y, paths) ->
         for path in paths

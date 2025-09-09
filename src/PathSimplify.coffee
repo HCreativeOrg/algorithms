@@ -51,7 +51,6 @@ class PathSimplify
         if lineStart.x == lineEnd.x and lineStart.y == lineEnd.y
             return @distance(point, lineStart)
         else
-            # Vector from start to end
             lineVecX = lineEnd.x - lineStart.x
             lineVecY = lineEnd.y - lineStart.y
             pointVecX = point.x - lineStart.x

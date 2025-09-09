@@ -89,7 +89,6 @@ class HCBezier
                         controls.push(P1)
                 else
                     controls.push(P1)
-            # no controls for linear
         else if type == 'quad'
             if P1.controls and P1.controls.length > 0
                 ctrl = P1.controls[0]
@@ -134,7 +133,6 @@ class HCBezier
                 x = (1 - local_t) ** 2 * P0.x + 2 * (1 - local_t) * local_t * C.x + local_t ** 2 * P1.x
                 y = (1 - local_t) ** 2 * P0.y + 2 * (1 - local_t) * local_t * C.y + local_t ** 2 * P1.y
             else
-                # fallback to linear
                 x = (1 - local_t) * P0.x + local_t * P1.x
                 y = (1 - local_t) * P0.y + local_t * P1.y
         else if type == 'cubic'
@@ -144,7 +142,6 @@ class HCBezier
                 x = (1 - local_t) ** 3 * P0.x + 3 * (1 - local_t) ** 2 * local_t * C0.x + 3 * (1 - local_t) * local_t ** 2 * C1.x + local_t ** 3 * P1.x
                 y = (1 - local_t) ** 3 * P0.y + 3 * (1 - local_t) ** 2 * local_t * C0.y + 3 * (1 - local_t) * local_t ** 2 * C1.y + local_t ** 3 * P1.y
             else
-                # fallback to linear
                 x = (1 - local_t) * P0.x + local_t * P1.x
                 y = (1 - local_t) * P0.y + local_t * P1.y
         return {x: x, y: y}

@@ -205,10 +205,6 @@ class NodeConnector
             @bezierPoints.push(bezierPoint)
         @bezier = new HCBezier(@bezierPoints)
 
-    ###
-    Get point on the curve at parameter t
-    return {x, y} - The computed point on the curve
-    ###
     getPoint: (t) ->
         return @bezier.renderAtProgress(t)
 
