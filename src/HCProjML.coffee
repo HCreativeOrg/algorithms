@@ -17,8 +17,7 @@ objKey2=>olderValue2
 
 class ACProjMLEncoder
     constructor: (meta, obj, prev) ->
-        @name = meta.name
-        @revision = meta.revision
+        @meta = meta
         @data = obj
         @prev = prev
 
@@ -45,8 +44,20 @@ class ACProjMLEncoder
                 str = "#{value}"
         return str
 
+    buildHeaderValue: (value) ->
+        if typeof value is "string"
+            if /[{}[\]:\"\n\\]/.test(value)
+                escaped = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n')
+                "\"#{escaped}\""
+            else
+                value
+        else
+            "#{value}"
+
     build: () ->
-        str = "name:\"#{@name}\" revision:#{@revision}\n"
+        str = ""
+        for key, value of @meta
+            str += "#{key}:#{ @buildHeaderValue(value) }\n"
         if @prev.length > 0
             diffObj = @diff()
             str += "data:[\n"
